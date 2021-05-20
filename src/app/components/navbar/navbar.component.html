@@ -1,0 +1,133 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink='/'>Covid-19 Tracker</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="jumbotron bg-white text-center">
+  <h1 class="display">Corono Tracker</h1>
+  <hr>
+  <div class="row ">
+      <div class ="card col p-3 m-3 ">
+        <div class="ui statistic">
+            <div class="value">{{totalData?.confirmed | number}}</div>
+            
+            <div class="label">
+              Confirmed
+            </div>
+        </div>
+      </div>
+      <div class ="card col p-3 m-3" >
+        <div class="ui statistic">
+            <div class="value">{{totalData?.recovered | number}}</div>
+            <div class="label">
+              Recovered
+            </div>
+          </div>
+      </div>
+      <div class ="card col p-3 m-3">
+        <div class="ui statistic">
+            <div class="value">{{totalData?.deaths | number}}</div>
+            <div class="label">
+              Deaths
+            </div>
+          </div>
+      </div>
+      <div class ="card col p-3 m-3">
+        <div class="ui statistic">
+            <div class="value">{{totalData?.active | number}}</div>
+            <div class="label">
+              Active
+            </div>
+          </div>
+      </div>
+</div> 
+  <br> 
+  <div class="mx-auto" *ngIf="selectedStateCode==undefined">
+    <div class = "form col-lg-5 mx-auto">
+        <label for ="State">Select States & Union Territory</label>
+         <!-- <select name ="SelectedState"  class="form-control" id="State" > -->
+          <select name="SelectedState" id="State" class="form-control" ng-Model="selectedStateCode"  
+          (change)='onStateSelected()'> 
+            <option>State & Union Territory---</option>  
+            <option *ngFor="let data of allData" [value]="data.statecode">{{data.state}}</option>
+        </select>
+    </div>
+</div>
+</div>
+
+
+  
+<div class="col-3" *ngIf="selectedStateCode!=undefined">  
+  <h5><span class="badge badge-secondary">{{stateData?.state}} Summary</span></h5>  
+  <table class="table table-striped">  
+    <tbody>  
+      <tr>  
+        <td>Total Confirmed</td>  
+        <td>{{stateData?.confirmed | number}}</td>  
+      </tr>  
+      <tr>  
+        <td>Total Active</td>  
+        <td>{{stateData?.active | number}}</td>  
+      </tr>  
+      <tr>  
+        <td>Total Recovered</td>  
+        <td>{{stateData?.recovered | number}}</td>  
+      </tr>  
+      <tr>  
+        <td>Total Deaths</td>  
+        <td>{{stateData?.deaths | number}}</td>  
+      </tr>  
+      <tr>  
+        <td>Newly Confirmed</td>  
+        <td>{{stateData?.deltaconfirmed | number}}</td>  
+      </tr>  
+      <tr>  
+        <td>Newly Recovered</td>  
+        <td>{{stateData?.deltarecovered | number}}</td>  
+      </tr>  
+      <tr>  
+        <td>Newly Deaths</td>  
+        <td>{{stateData?.deltadeaths | number}}</td>  
+      </tr>  
+      <tr>  
+        <td>Migrated to Other</td>  
+        <td>{{stateData?.migratedother | number}}</td>  
+      </tr>  
+      <tr>  
+        <td>Last Updated Time</td>  
+        <td>{{stateData?.lastupdatedtime}}</td>  
+      </tr>  
+    </tbody>  
+  </table>  
+</div>  
+
+<div class="col-3" *ngIf="selectedStateCode!=undefined">  
+  <h5><span class="badge badge-secondary">{{stateData?.state}} District wise Details</span></h5>  
+  <div>  
+    <table class="table table-sm">  
+      <thead>  
+        <tr>  
+          <th scope="col">District Name</th>  
+          <th scope="col">Total Confirmed</th>  
+        </tr>  
+      </thead>  
+      <tbody>  
+        <tr *ngFor="let data of districtData?.districtData">  
+          <td>{{data.name}}</td>  
+          <td>{{data.confirmed | number}}</td>  
+        </tr>  
+      </tbody>  
+    </table>  
+  </div>  
+
+</div>  
+
+
+
+ 
+
+  
